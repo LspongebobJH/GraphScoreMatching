@@ -21,7 +21,8 @@ mcmc:  # hyper parameters in the Langevin MC sampling
   - 0.005
   - 0.0005
   name: langevin
-  step_num: 1000
+  # step_num: 1000
+  step_num : 10
 model:
   name: edp-gnn  # the name of the score-network, should be one of ['gnn', 'mlp', 'cov', 'unet', 'edp-gnn']
   models:
@@ -62,9 +63,11 @@ train:
   lr_init: 0.001
   momentum: 0.9
 
-  max_epoch: 5001
+  # max_epoch: 5001
+  max_epoch: 10
   sample_interval: 2500  # run sampling after <sample_interval> epochs
-  save_interval: 2500 # save the model after <save_interval> epochs
+  # save_interval: 2500 # save the model after <save_interval> epochs
+  save_interval: 5
 
   shuffle: true
   sigmas:

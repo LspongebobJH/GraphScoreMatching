@@ -6,7 +6,8 @@ exp_name: ego_small
 seed: 1234
 
 # where to find the saved models (you need to edit the path)
-model_save_dir: 'exp/ego_small/edp-gnn_ego_small_xxx/models'
+# model_save_dir: 'exp/ego_small/edp-gnn_ego_small_xxx/models'
+model_save_dir: 'exp/ego_small/edp-gnn_ego_small__Jun-05-11-21-20_807956/models'
 
 # uncomment it to save the output files to `save_dir` instead of creating a new directory
 #save_dir: 'exp/ego_small/edp-gnn_ego_small_xxx'

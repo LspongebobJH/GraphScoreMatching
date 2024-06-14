@@ -157,7 +157,7 @@ def graphs_to_tensor(config, graph_list):
                                            axis=0)
         x_list.append(padded_feature_np)
 
-        adj = nx.to_numpy_matrix(g, nodelist=node_list)
+        adj = nx.to_numpy_array(g, nodelist=node_list)
         # print(config.dataset.max_node_num)
         padded_adj = pad_adjs(adj, node_number=config.dataset.max_node_num)
         adjs_list.append(padded_adj)

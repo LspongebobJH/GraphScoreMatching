@@ -12,12 +12,12 @@ import matplotlib.pyplot as plt
 import matplotlib.colors as mcolors
 from matplotlib import cm
 
-warnings.filterwarnings("ignore", category=matplotlib.cbook.MatplotlibDeprecationWarning)
+# warnings.filterwarnings("ignore", category=matplotlib.cbook.MatplotlibDeprecationWarning)
 
 
 options = {
     'node_size': 2,
-    'line_color': 'black',
+    # 'line_color': 'black',
     'linewidths': 1,
     'width': 0.5
 }
@@ -53,7 +53,7 @@ def plot_multi_channel_numpy_adjs(adjs, title='multi_channel_viz', save_dir=None
     y_max = len(adjs)
     print(x_max, y_max)
     figure = plt.figure(figsize=(x_max * 2, y_max * 2))
-    cardinal_g = nx.from_numpy_array(np.asarray(adjs[0][0] > 0.5, dtype=np.float))
+    cardinal_g = nx.from_numpy_array(np.asarray(adjs[0][0] > 0.5, dtype=float))
     pos = nx.spring_layout(cardinal_g)
     weight_ranges = [(-1e10, -0.8), (-0.8, 0.5), (0.5, 1e10)]
     cmap_list = [plt.cm.Blues_r, plt.cm.twilight_shifted, plt.cm.Reds]
@@ -112,7 +112,7 @@ def plot_multi_channel_numpy_adjs_1b1(adjs, title='multi_channel_viz', save_dir=
     a_min, a_max = -2.0, 2.0
     # adjs = np.clip(adjs, a_max=a_max, a_min=a_min)
 
-    cardinal_g = nx.from_numpy_array(np.asarray(adjs[0][0] > 0.5, dtype=np.float))
+    cardinal_g = nx.from_numpy_array(np.asarray(adjs[0][0] > 0.5, dtype=float))
     pos = nx.spring_layout(cardinal_g)
 
     for layer_i, adj in enumerate(adjs):
@@ -234,7 +234,7 @@ def plot_graphs_list(graphs, energy=None, node_energy_list=None, title='title', 
         G.remove_nodes_from(list(nx.isolates(G)))
         e = G.number_of_edges()
         v = G.number_of_nodes()
-        l = G.number_of_selfloops()
+        l = nx.number_of_selfloops(G)
 
         ax = plt.subplot(img_c, img_c, i + 1)
         title_str = f'e={e - l}, n={v}'
@@ -266,13 +266,13 @@ def plot_graphs_adj(adjs, energy=None, node_num=None, title='title', max_num=16,
     for i in range(max_num):
         idx = i * (adjs.shape[0] // max_num)
         adj = adjs[idx, :, :]
-        G = nx.from_numpy_matrix(adj)
+        G = nx.from_numpy_array(adj)
         assert isinstance(G, nx.Graph)
         G.remove_edges_from(list(nx.selfloop_edges(G)))
         G.remove_nodes_from(list(nx.isolates(G)))
         e = G.number_of_edges()
         v = G.number_of_nodes()
-        l = G.number_of_selfloops()
+        l = nx.number_of_selfloops()
 
         ax = plt.subplot(img_c, img_c, i + 1)
         title_str = f'e={e - l}, n={v}'

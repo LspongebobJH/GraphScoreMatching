@@ -255,8 +255,8 @@ def orbit_stats_all(graph_ref_list, graph_pred_list):
 def adjs_to_graphs(adjs, node_flags=None):
     graph_list = []
     for adj in adjs:
-        G = nx.from_numpy_matrix(adj)
-        G.remove_edges_from(G.selfloop_edges())
+        G = nx.from_numpy_array(adj)
+        G.remove_edges_from(nx.selfloop_edges(G))
         G.remove_nodes_from(list(nx.isolates(G)))
         if G.number_of_nodes() < 1:
             G.add_node(1)

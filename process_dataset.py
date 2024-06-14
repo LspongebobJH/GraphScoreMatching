@@ -112,14 +112,15 @@ def graph_load(dataset='cora'):
 
 def citeseer_ego(radius=3, node_min=50, node_max=400):
     _, G = graph_load(dataset='citeseer')
-    G = max(nx.connected_component_subgraphs(G), key=len)
+    # G = max(nx.connected_component_subgraphs(G), key=len)
+    G = max((G.subgraph(c) for c in nx.connected_components(G)), key=len)
     G = nx.convert_node_labels_to_integers(G)
     graphs = []
     for i in range(G.number_of_nodes()):
         G_ego = nx.ego_graph(G, i, radius=radius)
         assert isinstance(G_ego, nx.Graph)
         if G_ego.number_of_nodes() >= node_min and (G_ego.number_of_nodes() <= node_max):
-            G_ego.remove_edges_from(G_ego.selfloop_edges())
+            G_ego.remove_edges_from(nx.selfloop_edges(G_ego))
             graphs.append(G_ego)
     return graphs
 
